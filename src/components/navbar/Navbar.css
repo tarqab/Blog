@@ -1,0 +1,16 @@
+.navbar {
+
+    background-color: var(--main-color);
+}
+
+
+
+@media screen and (max-width:576px) {
+    .container-navbar {
+        justify-content: center!important;
+        
+    }
+    .left {
+        display: none!important;
+    }
+}

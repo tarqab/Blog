@@ -1,0 +1,80 @@
+.logo h1 {
+    font-family: 'Anton' , sans-serif ;
+    
+}
+.logo p {
+    font-family: 'Allan', cursive;
+    color: var(--main-color);
+}
+.bg-body-tertiary { 
+--bs-bg-opacity: 0;
+}
+.navbar-nav { 
+    --bs-nav-link-hover-color: var(--main-color) ;
+}
+
+.bg-main {
+    background-color: var(--main-color);
+}
+.card-hero {
+    position: relative;
+    cursor: pointer;
+}
+
+.text-card-hero {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 33%;
+    padding:0.5rem;
+    color: white ;
+    z-index: 10;
+    background-color: rgba(0 , 0 , 0 , 0.4);
+}
+
+
+.category-min {
+    display: inline-block;
+    font-size: .725rem;
+    padding: 0 1rem;
+    background-color: var(--main-color);
+    border-radius: 0.1875rem;
+}
+.text-card-hero h6 {
+    font-weight: 700;
+}
+.text-card-hero p {
+ font-size: .75rem;
+}
+
+.blog-box-image {
+    padding: 0 !important;
+}
+
+.blog-texts {
+  padding-bottom: 0.7rem ;
+  box-sizing: border-box!important;
+}
+.text-paragraph {
+    font-size: 12px;
+}
+.text-paragraph-writer{
+    color: black;
+    font-size: 12px;
+    font-weight: 500;
+}
+.category ul {
+    list-style-type: none;
+    padding: 0;
+}
+.category ul li {
+font-size: 0.8rem;
+color: rgba(0, 0, 0, 0.6);
+cursor: pointer;
+padding: 0.25rem 0;
+border-bottom: 1px dashed #00000099 ;
+}
+.category ul li:hover {
+    color: var(--main-color);
+}
+
