@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import {RouterProvider , createBrowserRouter} from "react-router-dom"
-
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { firebaseConfig } from "./firebase.js"
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 import {
@@ -49,7 +49,7 @@ const myRouter = createBrowserRouter([
 export default function App() {
   return (
     <>
-      <RouterProvider router = {myRouter} ></RouterProvider>
+      <RouterProvider router={myRouter} ></RouterProvider>
     </>
   );
 }

@@ -1,6 +1,7 @@
 
 .footer {
-margin-top: auto !important;
+position: sticky;
+top:100%;
    
 }
 

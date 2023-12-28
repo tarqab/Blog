@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -37,9 +38,10 @@ export default function Navbar() {
             </div>
           </div>
           <div className="right d-flex justify-content-center align-items-center gap-2 ">
-            
             <div className="user">
-              <button className="btn btn-success">Login</button>
+              <Link to="/login">
+                <button className="btn btn-success">Login</button>
+              </Link>
             </div>
             <input
               type="email"
