@@ -3,7 +3,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 import { firebaseConfig } from "./firebase.js"
 import { library } from "@fortawesome/fontawesome-svg-core";
-
+import { Toaster } from "react-hot-toast";
 import {
   faFacebook,
   faTwitter,
@@ -18,6 +18,9 @@ import Home from "./components/home/Home.jsx";
 import Footer from "./components/footer/Footer.jsx"
 import Layout from "./components/layout/Layout.jsx";
 import Login from "./components/login/Login.jsx";
+import { AuthProvider } from "./components/context/authContext.js";
+import RecentPosts from "./components/recentPosts/RecentPosts.jsx";
+import ProtectedRoute from './components/proctectedRoute/ProtectedRoute';
 
 
 library.add(
@@ -42,6 +45,11 @@ const myRouter = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/recentPosts",
+        element: <ProtectedRoute ><RecentPosts /></ProtectedRoute>
+        ,
+      },
     ],
   },
 ]);
@@ -49,7 +57,11 @@ const myRouter = createBrowserRouter([
 export default function App() {
   return (
     <>
-      <RouterProvider router={myRouter} ></RouterProvider>
+      <AuthProvider>
+        <RouterProvider router={myRouter} >
+        </RouterProvider>
+      </AuthProvider>
+      
     </>
   );
 }

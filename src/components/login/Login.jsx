@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { createUserWithEmailAndPassword , signInWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "../../firebase.js";
+import { useNavigate } from "react-router-dom";
+import { authContext } from "../context/authContext.js";
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-
+  const navigate = useNavigate();
+  const { setToken} = useContext(authContext)
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -15,10 +18,13 @@ export default function Login() {
         // Signed up
         const user = userCredential.user;
         console.log(user);
-        toast.success("Successfully created!");
+        toast.success("Successfully logged in!");
+        setToken(user.accessToken)
+        localStorage.setItem('tkn' , user.accessToken)
+        navigate("/")
       })
       .catch((error) => {
-        toast.error("error!");
+        toast.error("Error! Check Your Password or E-mail");
         console.log(error.code);
         console.log(error.message);
       });

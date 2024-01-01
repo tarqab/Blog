@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { authContext } from "../context/authContext";
 
 export default function Navbar() {
+  const { token, setToken } = useContext(authContext);
+  const navigate = useNavigate();
+  function logout() {
+    toast("log out is successfully done");
+    localStorage.removeItem("tkn");
+    setToken(null);
+    navigate("/login");
+  }
+  console.log(token);
+
   return (
     <>
       <div className="navbar">
@@ -38,11 +50,22 @@ export default function Navbar() {
             </div>
           </div>
           <div className="right d-flex justify-content-center align-items-center gap-2 ">
-            <div className="user">
-              <Link to="/login">
-                <button className="btn btn-success">Login</button>
-              </Link>
-            </div>
+            {token ? (
+              <div className="logout w-100">
+                <Link to="/login">
+                  <button onClick={logout} className="btn btn-danger ">
+                    Log out
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <div className="login">
+                <Link to="/login">
+                  <button className="btn btn-success">Login</button>
+                </Link>
+              </div>
+            )}
+
             <input
               type="email"
               className="form-control"
