@@ -20,7 +20,7 @@ import Layout from "./components/layout/Layout.jsx";
 import Login from "./components/login/Login.jsx";
 import { AuthProvider } from "./components/context/authContext.js";
 import RecentPosts from "./components/recentPosts/RecentPosts.jsx";
-import ProtectedRoute from './components/proctectedRoute/ProtectedRoute';
+import ProtectedRoute from "./components/ProctectedRoute/ProtectedRoute.jsx";
 
 
 library.add(
