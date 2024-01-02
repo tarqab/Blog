@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { createUserWithEmailAndPassword , signInWithEmailAndPassword  } from "firebase/auth";
+import { signInWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "../../firebase.js";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../context/authContext.js";
 export default function Login() {
-  const [error, setError] = useState(false);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const navigate = useNavigate();
@@ -36,25 +35,25 @@ export default function Login() {
           <form className="form" onSubmit={handleLogin}>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
-                First Name
+              Email address
               </label>
               <input
                 type="email"
                 className="form-control"
                 id="email"
-                placeholder="First Name"
+                placeholder="Email address"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
-                First Name
+                Password
               </label>
               <input
                 type="password"
                 className="form-control"
                 id="password"
-                placeholder="Last Name"
+                placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

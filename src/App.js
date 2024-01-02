@@ -21,6 +21,7 @@ import Login from "./components/login/Login.jsx";
 import { AuthProvider } from "./components/context/authContext.js";
 import RecentPosts from "./components/recentPosts/RecentPosts.jsx";
 import ProtectedRoute from "./components/ProctectedRoute/ProtectedRoute.jsx";
+import Register from "./components/register/Register.jsx";
 
 
 library.add(
@@ -50,6 +51,10 @@ const myRouter = createBrowserRouter([
         element: <ProtectedRoute ><RecentPosts /></ProtectedRoute>
         ,
       },
+      {
+        path:"/signIn", 
+        element:<Register />
+      }
     ],
   },
 ]);

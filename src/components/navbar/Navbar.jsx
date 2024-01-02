@@ -50,21 +50,28 @@ export default function Navbar() {
             </div>
           </div>
           <div className="right d-flex justify-content-center align-items-center gap-2 ">
-            {token ? (
-              <div className="logout w-100">
-                <Link to="/login">
-                  <button onClick={logout} className="btn btn-danger ">
-                    Log out
-                  </button>
+            <div className="d-flex gap-2 w-100">
+              {token ? (
+                <div className="logout">
+                  <Link to="/login">
+                    <button onClick={logout} className="btn btn-danger ">
+                      Log out
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="login">
+                  <Link to="/login">
+                    <button className="btn btn-success">Login</button>
+                  </Link>
+                </div>
+              )}
+              <div className="signUp">
+                <Link to="/signUp">
+                  <button className="btn btn-success ">Sign up</button>
                 </Link>
               </div>
-            ) : (
-              <div className="login">
-                <Link to="/login">
-                  <button className="btn btn-success">Login</button>
-                </Link>
-              </div>
-            )}
+            </div>
 
             <input
               type="email"
