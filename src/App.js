@@ -52,7 +52,7 @@ const myRouter = createBrowserRouter([
         ,
       },
       {
-        path:"/signIn", 
+        path:"/signUp", 
         element:<Register />
       }
     ],
@@ -65,6 +65,7 @@ export default function App() {
       <AuthProvider>
         <RouterProvider router={myRouter} >
         </RouterProvider>
+        <Toaster />
       </AuthProvider>
       
     </>

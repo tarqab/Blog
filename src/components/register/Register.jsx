@@ -1,33 +1,65 @@
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
+import { auth , db} from "../../firebase.js";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export default function Register() {
   const [email, setEmail] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const auth = getAuth();
-
-  function createNewUser(e) {
-    e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        toast.success("New account is created");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        toast.error("Error ! ");
+  async function createNewUser(e) {
+    try {
+      e.preventDefault();
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      console.log(user);
+      await setDoc(doc(db, "users", user.uid), {
+        firstName: firstName ,
+        lastName: lastName,
+        email:email,
+        timeStamp:serverTimestamp()
       });
+      toast.success("New account is created");
+
+    } catch (error) {
+      const errorMessage = error.message;
+      if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
+        toast.error("This account is already exist ! Log in ");
+      }
+    }
   }
 
   return (
     <>
       <div className="container py-4">
-        <form className="form" onSubmit={createNewUser}>
+        <form className="form" onSubmit={createNewUser}> 
+        <div className="mb-3">
+            <label htmlFor="firstName" className="form-label">
+              First name 
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="firstName"
+              placeholder="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="lastName" className="form-label">
+              Last name 
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="lastName"
+              placeholder="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email address
