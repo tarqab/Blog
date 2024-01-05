@@ -14,6 +14,7 @@ export default function Register() {
   const [password, setPassword] = useState(null);
   const [repassword, setRePassword] = useState(null);
   const [file , setFile] = useState("")
+  const [userData, setUserData] = useState({})
   const userDataObj = {
     firstName: firstName,
     lastName: lastName,
@@ -24,10 +25,12 @@ export default function Register() {
  
 
   useEffect(()=>{
+  setUserData(userDataObj)  ;
+  console.log(userData);
   const uploadFile = () => {
     const storageRef = ref(storage, file.name);
     
-const uploadTask = uploadBytesResumable(storageRef, file);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
 
 uploadTask.on('state_changed', 
@@ -47,21 +50,24 @@ uploadTask.on('state_changed',
     
   }, 
   (error) => {
-    // Handle unsuccessful uploads
+ console.log(error.message);
   }, 
   () => {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log('File available at', downloadURL);
+      setUserData((prev)=>({...prev , img:downloadURL}))
+      console.log(userData);
     });
   }
 );
 
   }
 
-
+  file && uploadFile()
   } , [file])
+
+ 
   async function createNewUser(e) {
     try {
       e.preventDefault();
@@ -69,9 +75,7 @@ uploadTask.on('state_changed',
       const user = res.user;
       console.log(user);
       await setDoc(doc(db, "users", user.uid), {
-        firstName: userDataObj.firstName,
-        lastName: userDataObj.lastName,
-        email: userDataObj.email,
+        ...userData,
         timeStamp: serverTimestamp(),
       });
       toast.success("New account is created");
