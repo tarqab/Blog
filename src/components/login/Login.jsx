@@ -4,11 +4,14 @@ import { signInWithEmailAndPassword  } from "firebase/auth";
 import { auth } from "../../firebase.js";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../context/authContext.js";
+import { userContext } from "../context/userContext.js";
 export default function Login() {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const navigate = useNavigate();
   const { setToken} = useContext(authContext)
+  const {userUid ,  setUserUid} = useContext(userContext)
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -16,10 +19,11 @@ export default function Login() {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        console.log(user);
+        setUserUid(user.uid)
         toast.success("Successfully logged in!");
         setToken(user.accessToken)
         localStorage.setItem('tkn' , user.accessToken)
+        console.log(userUid);
         navigate("/")
       })
       .catch((error) => {
