@@ -148,7 +148,7 @@ export default function Register() {
               Repeat the Password
             </label>
             <input
-              type="repassword"
+              type="password"
               className="form-control"
               id="repassword"
               placeholder="Enter your password"

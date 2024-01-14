@@ -12,83 +12,96 @@ export default function Navbar() {
   const [profileImg, setProfileImg] = useState(null);
   const [userName, setUserName] = useState(null);
 
-  const { userUid } = useContext(userContext);
+  const { userUid, setUserUid } = useContext(userContext);
   const navigate = useNavigate();
   function logout() {
     toast("log out is successfully done");
-    localStorage.removeItem("tkn");
+    sessionStorage.removeItem("tkn");
+    sessionStorage.removeItem("uid");
     setToken(null);
+    setUserUid(null);
     navigate("/login");
   }
-  // console.log(token);
-  console.log(userUid);
 
+  console.log(sessionStorage.getItem("uid"));
   const getSomeData = async () => {
-    const docRef = doc(db, "users", userUid);
-    const docSnap = await getDoc(docRef);
+    if (userUid) {
+      const docRef = doc(db, "users", userUid);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setUserName(docSnap.data().firstName);
-      setProfileImg(docSnap.data().img);
+      if (docSnap.exists()) {
+        // console.log("Document data:", docSnap.data());
+        setUserName(docSnap.data().firstName);
+        setProfileImg(docSnap.data().img);
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
     } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
+      setUserName(null);
     }
   };
   useEffect(() => {
+    setUserUid(sessionStorage.getItem("uid"));
+    console.log("useEffect Navbar");
     getSomeData();
-  }, []);
+  }, [userUid]);
 
+  
   return (
     <>
       <div className="navbar">
         <div className="container-navbar w-100  d-flex justify-content-between container-fluid">
-          <div className="left d-flex justify-content-center align-items-center gap-3 ">
-            <div className="d-flex gap-2">
-              <FontAwesomeIcon
-                icon="fa-brands fa-facebook"
-                color="white"
-                cursor={"pointer"}
-              />{" "}
-              <FontAwesomeIcon
-                icon="fa-brands fa-twitter"
-                color="white"
-                cursor={"pointer"}
-              />{" "}
-              <FontAwesomeIcon
-                icon="fa-brands fa-linkedin"
-                color="white"
-                cursor={"pointer"}
-              />{" "}
-              <FontAwesomeIcon
-                icon="fa-brands fa-instagram"
-                color="white"
-                cursor={"pointer"}
-              />{" "}
-              <FontAwesomeIcon
-                icon="fa-brands fa-youtube"
-                color="white"
-                cursor={"pointer"}
-              />{" "}
-            </div>
-            <div className="h-100" >
+          <div className="left d-flex justify-content-center align-items-center  gap-3 ">
+            <div className="h-100 d-flex gap-3">
               {" "}
-              <h6>Hello {userName}</h6>
+              <div className="d-flex gap-2">
+                <FontAwesomeIcon
+                  icon="fa-brands fa-facebook"
+                  color="white"
+                  cursor={"pointer"}
+                />{" "}
+                <FontAwesomeIcon
+                  icon="fa-brands fa-twitter"
+                  color="white"
+                  cursor={"pointer"}
+                />{" "}
+                <FontAwesomeIcon
+                  icon="fa-brands fa-linkedin"
+                  color="white"
+                  cursor={"pointer"}
+                />{" "}
+                <FontAwesomeIcon
+                  icon="fa-brands fa-instagram"
+                  color="white"
+                  cursor={"pointer"}
+                />{" "}
+                <FontAwesomeIcon
+                  icon="fa-brands fa-youtube"
+                  color="white"
+                  cursor={"pointer"}
+                />{" "}
+              </div>
+              {userUid ? <h6>Hello {userName}</h6> : ""}
             </div>
-            {/* <div className="welcome h-100 d-flex  justify-content-center align-items-center " >
-            
-            </div> */}
           </div>
-          <div className="right d-flex justify-content-center align-items-center gap-2 ">
-            <div className="d-flex gap-2 w-100">
+          <div className="right d-flex justify-content-center align-items-center gap-2  ">
+            <div className="d-flex gap-2 ">
               {token ? (
-                <div className="logout">
-                  <Link to="/login">
-                    <button onClick={logout} className="btn btn-danger ">
-                      Log out
-                    </button>
-                  </Link>
+                <div className="d-flex ">
+                  <img
+                    src={profileImg}
+                    alt="profileImg"
+                    className="profileImg"
+                  />
+
+                  <div className="logout">
+                    <Link to="/login">
+                      <button onClick={logout} className="btn btn-danger  ">
+                        Log out
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <div className="login">
@@ -97,9 +110,9 @@ export default function Navbar() {
                   </Link>
                 </div>
               )}
-              <div className="signUp">
+              <div className="signUp ">
                 <Link to="/signUp">
-                  <button className="btn btn-success ">Sign up</button>
+                  <button className="btn btn-success">Sign up</button>
                 </Link>
               </div>
             </div>

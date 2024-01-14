@@ -20,9 +20,10 @@ export default function Login() {
         // Signed up
         const user = userCredential.user;
         setUserUid(user.uid)
+        sessionStorage.setItem('uid' , user.uid)
         toast.success("Successfully logged in!");
         setToken(user.accessToken)
-        localStorage.setItem('tkn' , user.accessToken)
+        sessionStorage.setItem('tkn' , user.accessToken)
         console.log(userUid);
         navigate("/")
       })
