@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
@@ -37,38 +38,38 @@ export default function Home() {
                   >
                     <ul className="navbar-nav mx-auto  mb-2 mb-lg-0 gap-1 fs-5">
                       <li className="nav-item">
-                        <a
+                        <Link
                           className="nav-link active"
                           aria-current="page"
-                          href="#"
+                          to="/"
                         >
                           Home
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#">
-                          Page1
-                        </a>
+                        <Link className="nav-link" to="/newPost">
+                          New post
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#">
-                          Page2
-                        </a>
+                        <Link className="nav-link" to="/myPosts">
+                          My posts
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#">
+                        <Link className="nav-link" to="#">
                           Page3
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#">
+                        <Link className="nav-link" to="#">
                           Page4
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="#">
+                        <Link className="nav-link" to="#">
                           Page5
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>

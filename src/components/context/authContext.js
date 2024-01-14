@@ -10,9 +10,9 @@ export function AuthProvider({ children }) {
     useEffect(function () {
         console.log("hello from Auth IF");
 
-        if (localStorage.getItem('tkn') !== null) {
-            console.log("dsfdf");
-            setToken(localStorage.getItem('tkn'))
+        if (sessionStorage.getItem('tkn') !== null) {
+         
+            setToken(sessionStorage.getItem('tkn'))
         }
     }, [])
 

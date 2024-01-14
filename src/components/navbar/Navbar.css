@@ -14,12 +14,13 @@
         display: none!important;
     }
 }
-button {
+.buttons-navbar {
   width: 100px !important;
 
 }
 .profileImg {
     width: 50px;
+    height: 40px;
     margin-right: 10px;
     border-radius: 46%;
 }

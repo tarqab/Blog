@@ -39,6 +39,7 @@ export default function Navbar() {
       }
     } else {
       setUserName(null);
+      setProfileImg(null)
     }
   };
   useEffect(() => {
@@ -97,7 +98,7 @@ export default function Navbar() {
 
                   <div className="logout">
                     <Link to="/login">
-                      <button onClick={logout} className="btn btn-danger  ">
+                      <button onClick={logout} className="btn btn-danger buttons-navbar ">
                         Log out
                       </button>
                     </Link>
@@ -106,13 +107,13 @@ export default function Navbar() {
               ) : (
                 <div className="login">
                   <Link to="/login">
-                    <button className="btn btn-success">Login</button>
+                    <button className="btn btn-success buttons-navbar">Login</button>
                   </Link>
                 </div>
               )}
               <div className="signUp ">
                 <Link to="/signUp">
-                  <button className="btn btn-success">Sign up</button>
+                  <button className="btn btn-success buttons-navbar">Sign up</button>
                 </Link>
               </div>
             </div>
@@ -123,7 +124,7 @@ export default function Navbar() {
               id="search"
               placeholder="search"
             />
-            <button className="btn btn-outline-dark">search</button>
+            <button className="btn btn-outline-dark buttons-navbar">search</button>
           </div>
         </div>
       </div>

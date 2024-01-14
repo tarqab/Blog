@@ -23,6 +23,8 @@ import RecentPosts from "./components/recentPosts/RecentPosts.jsx";
 import ProtectedRoute from "./components/ProctectedRoute/ProtectedRoute.jsx";
 import Register from "./components/register/Register.jsx";
 import { UserProvider } from "./components/context/userContext.js";
+import NewPost from "./components/newPost/NewPost.jsx";
+import MyPosts from "./components/myPosts/MyPosts.jsx";
 
 library.add(
   faFacebook,
@@ -54,6 +56,24 @@ const myRouter = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "/newPost",
+        element: (
+          <ProtectedRoute>
+            <NewPost />
+          </ProtectedRoute>
+        )
+
+      },
+      {
+        path: "/myPosts",
+        element: (
+          <ProtectedRoute>
+            <MyPosts />
+          </ProtectedRoute>
+        )
+      },
+
       {
         path: "/signUp",
         element: <Register />,
