@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 
 export default function MyPosts() {
   const uid = auth.currentUser?.uid;
-
+  const [data, setData] = useState(null);
   const getData = async () => {
     const q = query(collection(db, "users", uid, "posts"));
     const querySnapshot = await getDocs(q);
@@ -15,7 +15,9 @@ export default function MyPosts() {
   };
 
   useEffect(() => {
-    getData();
+    const response = getData();
+    // setData(getData());
+    console.log(response);
   }, []);
 
   return (
