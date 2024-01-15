@@ -3,21 +3,19 @@ import { auth, db } from "../../firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 
 export default function MyPosts() {
-  const uid = auth.currentUser?.uid;
-  const [data, setData] = useState(null);
+  const uid = sessionStorage.getItem("uid");
+  const [data, setData] = useState([]);
   const getData = async () => {
     const q = query(collection(db, "users", uid, "posts"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      const res = doc.data();
-      return res;
+      data.push({ ...doc.data() , id : doc.id});
     });
   };
 
   useEffect(() => {
-    const response = getData();
-    // setData(getData());
-    console.log(response);
+    getData();
+    console.log(data);
   }, []);
 
   return (
@@ -26,9 +24,13 @@ export default function MyPosts() {
         <h2>My Posts</h2>
         <div className="row">
           <div className="col-md-6">
-            <div className="blogFigure">
-              <h5></h5>
-            </div>
+            {data.map((blog, idx) => {
+              return (
+                <div className="blogFigure" key={idx}>
+                  <h5>{blog.title}</h5>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
