@@ -8,9 +8,11 @@ export default function MyPosts() {
   const getData = async () => {
     const q = query(collection(db, "users", uid, "posts"));
     const querySnapshot = await getDocs(q);
+    let arr = [];
     querySnapshot.forEach((doc) => {
-      data.push({ ...doc.data() , id : doc.id});
+      arr.push({ ...doc.data(), id: doc.id });
     });
+    setData(arr);
   };
 
   useEffect(() => {
@@ -23,15 +25,17 @@ export default function MyPosts() {
       <div className="container">
         <h2>My Posts</h2>
         <div className="row">
-          <div className="col-md-6">
-            {data.map((blog, idx) => {
-              return (
-                <div className="blogFigure" key={idx}>
+          {data.map((blog, idx) => {
+            return (
+              <div className="col-md-6 gy-1" key={idx}>
+                <div className="blogFigure shadow  p-2">
                   <h5>{blog.title}</h5>
+                  <h5>{blog.category}</h5>
+                  <p>{blog.text}</p>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>

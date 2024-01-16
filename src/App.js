@@ -20,7 +20,7 @@ import Layout from "./components/layout/Layout.jsx";
 import Login from "./components/login/Login.jsx";
 import { AuthProvider } from "./components/context/authContext.js";
 import RecentPosts from "./components/recentPosts/RecentPosts.jsx";
-import ProtectedRoute from "./components/ProctectedRoute/ProtectedRoute.jsx";
+import ProtectedRoute from "./components/proctectedRoute/ProtectedRoute.jsx";
 import Register from "./components/register/Register.jsx";
 import { UserProvider } from "./components/context/userContext.js";
 import NewPost from "./components/newPost/NewPost.jsx";
