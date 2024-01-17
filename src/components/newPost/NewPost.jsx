@@ -38,13 +38,13 @@ useEffect(()=>{
         <h5 className="text-center">New Post</h5>
         <form onSubmit={addNewPost} >
           <div className="mb-3">
-            <label htmlFor="firstName" className="form-label">
+            <label htmlFor="title" className="form-label">
               Title
             </label>
             <input
               type="text"
               className="form-control"
-              id="firstName"
+              id="title"
               placeholder="enter post title"
               onChange={(e) => setTitle(e.target.value)}
             />

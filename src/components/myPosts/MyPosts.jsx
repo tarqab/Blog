@@ -31,7 +31,7 @@ export default function MyPosts() {
         <div className="container">
           <h2>My Posts</h2>
           <div className="row">
-            {data.map((blog, idx) => {
+            {data.map((blog) => {
               return (
                 <div className="col-md-6 gy-2" key={blog.id}>
                   <Link to={`/postDetails/${blog.id}`}>
