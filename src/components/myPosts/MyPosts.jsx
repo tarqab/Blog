@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {  db } from "../../firebase";
+import { db } from "../../firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { PuffLoader } from "react-spinners";
-
+import "./myPosts.css";
 export default function MyPosts() {
   const uid = sessionStorage.getItem("uid");
   const [data, setData] = useState([]);
@@ -22,7 +22,6 @@ export default function MyPosts() {
   };
 
   useEffect(() => {
-   
     getData();
   }, []);
 
@@ -34,16 +33,16 @@ export default function MyPosts() {
           <div className="row">
             {data.map((blog, idx) => {
               return (
-                <Link to ={`/postDetails/${blog.id}`}>
-                  {" "}
-                  <div className="col-md-6 gy-1" key={blog.id}>
-                    <div className="blogFigure shadow  p-2">
+                <div className="col-md-6 gy-2" key={blog.id}>
+                  <Link to={`/postDetails/${blog.id}`}>
+                    {" "}
+                    <div className="blogFigure border rounded  p-2">
                       <h5>{blog.title}</h5>
                       <h5>{blog.category}</h5>
                       <p>{blog.text}</p>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })}
           </div>
