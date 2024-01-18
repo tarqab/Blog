@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { doc, getDoc, updateDoc, deleteDoc  } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { PuffLoader } from "react-spinners";
 import toast from "react-hot-toast";
+import "./postDetails.css";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -15,6 +16,7 @@ export default function PostDetails() {
   const [clicked, setClicked] = useState("d-none");
   const [updateButtonFirst, setUpdateButtonFirst] = useState("d-block");
   const [updateButtonSecond, setUpdateButtonSecond] = useState("d-none");
+  const [confirmed, setConfirmed] = useState("d-none");
   const navigate = useNavigate();
 
   //-----------------------------
@@ -27,6 +29,9 @@ export default function PostDetails() {
     } else {
       console.log("No such document!");
     }
+    setTitle(data?.title);
+    setCategory(data?.category);
+    setText(data?.text);
   };
 
   //-------- update -----------
@@ -37,43 +42,43 @@ export default function PostDetails() {
     setUpdateButtonSecond("d-block");
   };
 
-  const updatePost = async () => {
+  const updatePost = async (e) => {
+    e.preventDefault();
     const post = doc(db, "users", uid, "posts", id);
-
     await updateDoc(post, {
       title: title,
       category: category,
       text: text,
     });
-
+    getPostDetails();
     setUpdateButtonSecond("d-none");
     setClicked("d-none");
 
     setUpdateButtonFirst("d-block");
-    window.location.reload();
-  };
   
-  const deletePost = async() => {
+  };
+
+  const deletePost = async () => {
     await deleteDoc(doc(db, "users", uid, "posts", id));
-    toast.success("The Blog is deleted")
-    navigate("/myPosts")
-  }
+    toast.success("The Blog is deleted");
+    navigate("/myPosts");
+  };
   useEffect(() => {
     getPostDetails();
   }, []);
   return (
     <>
       {data ? (
-        <div className="container p-4">
+        <div className="container p-4 ">
           <div className="row">
             <div className="col-md-12" key={data.id}>
-              <div className="dataFigure border p-2">
+              <div className="dataFigure border rounded p-2">
                 <h5>Title: {data.title}</h5>
                 <h5>Category: {data.category}</h5>
-                <p>Text: {data.text}</p>
+                <p className="post-text">{data.text}</p>
               </div>
               <div className={`update mt-2 ${clicked}`}>
-                <form>
+                <form onSubmit={updatePost}>
                   <div className="mb-3">
                     <label htmlFor="title" className="form-label">
                       Title
@@ -114,23 +119,33 @@ export default function PostDetails() {
                       style={{ minHeight: "150px" }}
                     />
                   </div>
+                  <button
+                    type="submit"
+                    className={`btn btn-primary mt-2 ${updateButtonSecond}`}
+                  >
+                    Update
+                  </button>
                 </form>
               </div>
               <div className="d-flex gap-1">
                 <button
                   onClick={toggleButton}
-                  className={`btn btn-success mt-2 ${updateButtonFirst}`}
+                  className={`btn btn-primary mt-2 ${updateButtonFirst}`}
                 >
                   Update
                 </button>
-
-                <button
-                  onClick={updatePost}
-                  className={`btn btn-primary mt-2 ${updateButtonSecond}`}
-                >
-                  Done
+                <button onClick={()=> {setConfirmed("d-block")}} className="btn btn-danger mt-2">
+                  Delete
                 </button>
-                <button onClick={deletePost} className="btn btn-danger mt-2">Delete</button>
+              </div>
+              <div className={`${confirmed}`}>
+                <div className="p-2 w-50 mt-3 d-flex justify-content-center align-items-center shadow-lg">
+                  <h4>Do you want to delete it ?</h4>
+                </div>
+                <div className="d-flex gap-1  mt-2 w-50 mt-3 d-flex justify-content-center align-items-center ">
+                  <button onClick={deletePost} className="btn btn-success d-block">yes</button>
+                  <button onClick={()=> {setConfirmed("d-none")}} className="btn btn-danger d-block ">No</button>
+                </div>
               </div>
             </div>
           </div>

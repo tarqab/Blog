@@ -19,62 +19,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <nav className="navbar navbar-expand-lg bg-body-tertiary mb-4">
-                <div className="container-fluid">
-                  <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <span className="navbar-toggler-icon"></span>
-                  </button>
-                  <div
-                    className="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                  >
-                    <ul className="navbar-nav mx-auto  mb-2 mb-lg-0 gap-1 fs-5">
-                      <li className="nav-item">
-                        <Link
-                          className="nav-link active"
-                          aria-current="page"
-                          to="/"
-                        >
-                          Home
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/newPost">
-                          New post
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/myPosts">
-                          My posts
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="#">
-                          Page3
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="#">
-                          Page4
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="#">
-                          Page5
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
+           
               <div className="row gy-3">
                 <div className="col-md-12 col-lg-4 ">
                   <div className="card-hero shadow-lg">

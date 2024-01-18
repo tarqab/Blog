@@ -10,7 +10,7 @@
 --bs-bg-opacity: 0;
 }
 .navbar-nav { 
-    --bs-nav-link-hover-color: var(--main-color) ;
+    --bs-nav-link-hover-color: white ;
 }
 
 .bg-main {

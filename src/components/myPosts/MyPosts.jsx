@@ -10,12 +10,10 @@ export default function MyPosts() {
 
   // ---------- getData Function ----------
   const getData = async () => {
-    console.log("blabla");
     const q = query(collection(db, "users", uid, "posts"));
     const querySnapshot = await getDocs(q);
     let arr = [];
     querySnapshot.forEach((doc) => {
-      console.log("data -> ", doc.data());
       arr.push({ ...doc.data(), id: doc.id });
     });
     setData(arr);
@@ -28,7 +26,7 @@ export default function MyPosts() {
   return (
     <>
       {data ? (
-        <div className="container">
+        <div className="container p-2">
           <h2>My Posts</h2>
           <div className="row">
             {data.map((blog) => {

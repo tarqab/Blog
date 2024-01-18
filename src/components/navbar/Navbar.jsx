@@ -39,7 +39,7 @@ export default function Navbar() {
       }
     } else {
       setUserName(null);
-      setProfileImg(null)
+      setProfileImg(null);
     }
   };
   useEffect(() => {
@@ -48,7 +48,6 @@ export default function Navbar() {
     getSomeData();
   }, [userUid]);
 
-  
   return (
     <>
       <div className="navbar">
@@ -86,6 +85,50 @@ export default function Navbar() {
               {userUid ? <h6>Hello {userName}</h6> : ""}
             </div>
           </div>
+          <div className="links">
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+              <div className="container-fluid ">
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+                <div
+                  className="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul className="navbar-nav mx-auto  mb-2 mb-lg-0 gap-1 fs-5">
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link active"
+                        aria-current="page"
+                        to="/"
+                      >
+                        Home
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/newPost">
+                        New post
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/myPosts">
+                        My posts
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+
           <div className="right d-flex justify-content-center align-items-center gap-2  ">
             <div className="d-flex gap-2 ">
               {token ? (
@@ -98,7 +141,10 @@ export default function Navbar() {
 
                   <div className="logout">
                     <Link to="/login">
-                      <button onClick={logout} className="btn btn-danger buttons-navbar ">
+                      <button
+                        onClick={logout}
+                        className="btn btn-danger buttons-navbar "
+                      >
                         Log out
                       </button>
                     </Link>
@@ -107,13 +153,17 @@ export default function Navbar() {
               ) : (
                 <div className="login">
                   <Link to="/login">
-                    <button className="btn btn-success buttons-navbar">Login</button>
+                    <button className="btn btn-success buttons-navbar">
+                      Login
+                    </button>
                   </Link>
                 </div>
               )}
               <div className="signUp ">
                 <Link to="/signUp">
-                  <button className="btn btn-success buttons-navbar">Sign up</button>
+                  <button className="btn btn-success buttons-navbar">
+                    Sign up
+                  </button>
                 </Link>
               </div>
             </div>
@@ -124,7 +174,9 @@ export default function Navbar() {
               id="search"
               placeholder="search"
             />
-            <button className="btn btn-outline-dark buttons-navbar">search</button>
+            <button className="btn btn-outline-dark buttons-navbar">
+              search
+            </button>
           </div>
         </div>
       </div>
