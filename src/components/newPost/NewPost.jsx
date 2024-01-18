@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
+import { Timestamp, addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore"; 
 import { toast } from 'react-hot-toast';
 
 
@@ -14,14 +14,13 @@ export default function NewPost() {
     title: title,
     category: category,
     text: text,
+   
   };
   const addNewPost = async(e) => {
     e.preventDefault();
     const posts = collection(db, "users", uid, "posts");
     const docRef = await addDoc(posts, {
-     title:newPostObj.title,
-     category:newPostObj.category, 
-     text:newPostObj.text,
+      ...newPostObj , addingTime: serverTimestamp()
     });
    toast.success("New Blog added")
    

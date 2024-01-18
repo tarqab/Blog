@@ -17,6 +17,7 @@ export default function PostDetails() {
   const [updateButtonFirst, setUpdateButtonFirst] = useState("d-block");
   const [updateButtonSecond, setUpdateButtonSecond] = useState("d-none");
   const [confirmed, setConfirmed] = useState("d-none");
+  const [time, setTime] = useState(null);
   const navigate = useNavigate();
 
   //-----------------------------
@@ -55,7 +56,6 @@ export default function PostDetails() {
     setClicked("d-none");
 
     setUpdateButtonFirst("d-block");
-  
   };
 
   const deletePost = async () => {
@@ -63,9 +63,47 @@ export default function PostDetails() {
     toast.success("The Blog is deleted");
     navigate("/myPosts");
   };
+
+  // Create a new JavaScript Date object based on the timestamp
+  // multiplied by 1000 so that the argument is in milliseconds, not seconds
+
+  const timeOfPost = () => {
+    console.log("hello");
+    const addingDate = new Date(data?.addingTime.seconds * 1000);
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const year = addingDate.getFullYear();
+    const month = months[addingDate.getMonth()];
+    const date = addingDate.getDate();
+    const hour = addingDate.getHours();
+    const min = addingDate.getMinutes();
+    //const sec = addingDate.getSeconds();
+    const temp = date + " " + month + " " + year + " " + hour + ":" + min  
+  console.log(temp);
+
+    setTime(temp);
+  }
+
+  //------------- useEffect ---------------
   useEffect(() => {
     getPostDetails();
+    timeOfPost()
+    console.log(data);
   }, []);
+  console.log(data);
+  
   return (
     <>
       {data ? (
@@ -75,6 +113,7 @@ export default function PostDetails() {
               <div className="dataFigure border rounded p-2">
                 <h5>Title: {data.title}</h5>
                 <h5>Category: {data.category}</h5>
+                <h6>Added at : {time}</h6>
                 <p className="post-text">{data.text}</p>
               </div>
               <div className={`update mt-2 ${clicked}`}>
@@ -134,7 +173,12 @@ export default function PostDetails() {
                 >
                   Update
                 </button>
-                <button onClick={()=> {setConfirmed("d-block")}} className="btn btn-danger mt-2">
+                <button
+                  onClick={() => {
+                    setConfirmed("d-block");
+                  }}
+                  className="btn btn-danger mt-2"
+                >
                   Delete
                 </button>
               </div>
@@ -143,8 +187,20 @@ export default function PostDetails() {
                   <h4>Do you want to delete it ?</h4>
                 </div>
                 <div className="d-flex gap-1  mt-2 w-50 mt-3 d-flex justify-content-center align-items-center ">
-                  <button onClick={deletePost} className="btn btn-success d-block">yes</button>
-                  <button onClick={()=> {setConfirmed("d-none")}} className="btn btn-danger d-block ">No</button>
+                  <button
+                    onClick={deletePost}
+                    className="btn btn-success d-block"
+                  >
+                    yes
+                  </button>
+                  <button
+                    onClick={() => {
+                      setConfirmed("d-none");
+                    }}
+                    className="btn btn-danger d-block "
+                  >
+                    No
+                  </button>
                 </div>
               </div>
             </div>

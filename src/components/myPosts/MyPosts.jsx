@@ -26,7 +26,7 @@ export default function MyPosts() {
   return (
     <>
       {data ? (
-        <div className="container p-2">
+        <div className="container p-2"> 
           <h2>My Posts</h2>
           <div className="row">
             {data.map((blog) => {
