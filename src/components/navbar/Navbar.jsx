@@ -23,7 +23,6 @@ export default function Navbar() {
     navigate("/login");
   }
 
-  console.log(sessionStorage.getItem("uid"));
   const getSomeData = async () => {
     if (userUid) {
       const docRef = doc(db, "users", userUid);

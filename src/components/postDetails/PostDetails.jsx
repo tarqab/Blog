@@ -13,6 +13,8 @@ export default function PostDetails() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [text, setText] = useState("");
+  const [timeInSeconds, setTimeInSeconds] = useState(0);
+
   const [clicked, setClicked] = useState("d-none");
   const [updateButtonFirst, setUpdateButtonFirst] = useState("d-block");
   const [updateButtonSecond, setUpdateButtonSecond] = useState("d-none");
@@ -22,17 +24,21 @@ export default function PostDetails() {
 
   //-----------------------------
   const getPostDetails = async () => {
+    console.log("1");
     const docRef = doc(db, "users", uid, "posts", id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       setData(docSnap.data());
+     
     } else {
       console.log("No such document!");
     }
     setTitle(data?.title);
     setCategory(data?.category);
     setText(data?.text);
+    console.log(data?.addingTime.seconds);
+    // setTimeInSeconds(data?.addingTime.seconds);
   };
 
   //-------- update -----------
@@ -68,9 +74,11 @@ export default function PostDetails() {
   // multiplied by 1000 so that the argument is in milliseconds, not seconds
 
   const timeOfPost = () => {
-    console.log("hello");
-    const addingDate = new Date(data?.addingTime.seconds * 1000);
-    const months = [
+   
+
+    console.log(data?.addingTime.seconds);
+    let addingDate = new Date(data?.addingTime.seconds * 1000);
+    let months = [
       "Jan",
       "Feb",
       "Mar",
@@ -84,26 +92,24 @@ export default function PostDetails() {
       "Nov",
       "Dec",
     ];
-    const year = addingDate.getFullYear();
-    const month = months[addingDate.getMonth()];
-    const date = addingDate.getDate();
-    const hour = addingDate.getHours();
-    const min = addingDate.getMinutes();
+    let year = addingDate.getFullYear();
+    let month = months[addingDate.getMonth()];
+    let date = addingDate.getDate();
+    let hour = addingDate.getHours();
+    let min = addingDate.getMinutes();
     //const sec = addingDate.getSeconds();
-    const temp = date + " " + month + " " + year + " " + hour + ":" + min  
-  console.log(temp);
+    const temp = date + " " + month + " " + year + " " + hour + ":" + min;
+    console.log(temp);
 
     setTime(temp);
-  }
+  };
 
   //------------- useEffect ---------------
   useEffect(() => {
     getPostDetails();
-    timeOfPost()
-    console.log(data);
-  }, []);
-  console.log(data);
-  
+    timeOfPost();
+  }, [data?.addingTime.seconds]);
+
   return (
     <>
       {data ? (
