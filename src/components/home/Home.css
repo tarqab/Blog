@@ -78,3 +78,7 @@ border-bottom: 1px dashed #00000099 ;
     color: var(--main-color);
 }
 
+.blogs-flow {
+    max-height: 40rem;
+    overflow: auto;
+}

@@ -9,18 +9,14 @@ import { PuffLoader } from "react-spinners";
 export default function Home() {
   const [posts, setPosts] = useState([]);
 
-
-
-
-
   useEffect(() => {
     async function getAllBlogs() {
       let temp = [];
       const querySnapshot = await getDocs(collection(db, "users"));
 
       querySnapshot.forEach(async (doc) => {
-        console.log(doc.data())
-        let name =doc.data().firstName +" " + doc.data().lastName ;
+        console.log(doc.data());
+        let name = doc.data().firstName + " " + doc.data().lastName;
         console.log(name);
         const querySnapshot = await getDocs(
           collection(db, "users", doc.id, "posts")
@@ -44,21 +40,22 @@ export default function Home() {
           let year = addingDate.getFullYear();
           let month = months[addingDate.getMonth()];
           let date = addingDate.getDate();
-         
-      
-          const tempTime = date + " " + month + " " + year;
-      
 
-          
-          temp.push({ ...doc.data(), id: doc.id  , timeOfPost: tempTime , author: name});
+          const tempTime = date + " " + month + " " + year;
+
+          temp.push({
+            ...doc.data(),
+            id: doc.id,
+            timeOfPost: tempTime,
+            author: name,
+          });
         });
-       
+
         setPosts(temp);
       });
     }
-    
+
     getAllBlogs();
-   
   }, []);
   console.log(posts);
 
@@ -137,22 +134,28 @@ export default function Home() {
               </div>
               <div className="container mt-5">
                 <div className="row">
-                  <div className="col-lg-9 col-md-12">
+                  <div className="col-lg-9 col-md-12 blogs-flow">
                     <div className="blog-box row gy-3 ">
                       {posts.map((item) => {
                         return (
-                          <div className="col-md-9 blog-texts border rounded" key={item.id}>
-                            <div>
-                              <span className="category-min">
-                                {item.category}
-                              </span>
-                              <h5>{item.title}</h5>
-                              <p className="text-paragraph">{item.text}</p>
-                              <p className="text-paragraph-writer">
-                                Added in : {item.timeOfPost} / <span> {item.author} </span>{" "}
-                              </p>
+                          <Link to={`/postDetails/${item.id}`}>
+                            <div
+                              className="col-md-9 blog-texts border rounded"
+                              key={item.id}
+                            >
+                              <div>
+                                <span className="category-min">
+                                  {item.category}
+                                </span>
+                                <h5>{item.title}</h5>
+                                <p className="text-paragraph">{item.text}</p>
+                                <p className="text-paragraph-writer">
+                                  Added in : {item.timeOfPost} /{" "}
+                                  <span> {item.author} </span>{" "}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          </Link>
                         );
                       })}
                     </div>
