@@ -9,47 +9,19 @@ import { PuffLoader } from "react-spinners";
 export default function Home() {
   const [posts, setPosts] = useState([]);
 
-  const [time, setTime] = useState(null);
-
-  const timeOfPost = () => {
-    console.log(posts?.addingTime.seconds);
-    let addingDate = new Date(posts?.addingTime.seconds * 1000);
-    let months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    let year = addingDate.getFullYear();
-    let month = months[addingDate.getMonth()];
-    let date = addingDate.getDate();
-    let hour = addingDate.getHours();
-    let min = addingDate.getMinutes();
-    //const sec = addingDate.getSeconds();
-    if (min == 0) {
-      min = min + "0";
-    }
-
-    const temp = date + " " + month + " " + year;
-
-    setTime(temp);
 
 
-  };
+
+
   useEffect(() => {
     async function getAllBlogs() {
       let temp = [];
       const querySnapshot = await getDocs(collection(db, "users"));
 
       querySnapshot.forEach(async (doc) => {
+        console.log(doc.data())
+        let name =doc.data().firstName +" " + doc.data().lastName ;
+        console.log(name);
         const querySnapshot = await getDocs(
           collection(db, "users", doc.id, "posts")
         );
@@ -77,10 +49,10 @@ export default function Home() {
           const tempTime = date + " " + month + " " + year;
       
 
-          console.log(tempTime);
           
-          temp.push({ ...doc.data(), id: doc.id  , timeOfPost: tempTime });
+          temp.push({ ...doc.data(), id: doc.id  , timeOfPost: tempTime , author: name});
         });
+       
         setPosts(temp);
       });
     }
@@ -88,8 +60,7 @@ export default function Home() {
     getAllBlogs();
    
   }, []);
-console.log(posts);
- 
+  console.log(posts);
 
   return (
     <>
@@ -178,7 +149,7 @@ console.log(posts);
                               <h5>{item.title}</h5>
                               <p className="text-paragraph">{item.text}</p>
                               <p className="text-paragraph-writer">
-                                Added in : {item.timeOfPost} / <span> By Tareq </span>{" "}
+                                Added in : {item.timeOfPost} / <span> {item.author} </span>{" "}
                               </p>
                             </div>
                           </div>
