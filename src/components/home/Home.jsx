@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
+
 export default function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    async function getAllBlogs() {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      let temp = [];
+      querySnapshot.forEach(async (doc) => {
+        const querySnapshot = await getDocs(
+          collection(db, "users", doc.id, "posts")
+        );
+        querySnapshot.forEach((doc) => {
+          // console.log(doc.id, " => ", doc.data());
+          temp.push(doc.data());
+        });
+      });
+      setPosts(temp);
+    }
+
+    getAllBlogs();
+  }, []);
+  console.log(posts);
+
   return (
     <>
       <div className="home ">
@@ -19,7 +44,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-           
+
               <div className="row gy-3">
                 <div className="col-md-12 col-lg-4 ">
                   <div className="card-hero shadow-lg">
@@ -79,172 +104,40 @@ export default function Home() {
               <div className="row">
                 <div className="col-lg-9 col-md-12">
                   <div className="blog-box row gy-3 ">
-                    <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
-                      <div>
-                        <img
-                          src={require("../../images/image-web-dev.jpg")}
-                          className="w-100 "
-                          alt=""
-                        ></img>
-                      </div>
-                    </div>
-                    <div className="col-md-9 blog-texts">
-                      <div>
-                        <span className="category-min">Web</span>
-                        <h5>
-                          The best twenty plant species you can look at at home
-                        </h5>
-                        <p className="text-paragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Eum exercitationem voluptas accusamus
-                          accusantium amet qui possimus, explicabo omnis ab
-                          temporibus, corporis modi eius ex et hic. Repellendus
-                          sapiente ea voluptas?
-                        </p>
-                        <p className="text-paragraph-writer">
-                          21 July, 2023 / <span> By Tareq </span>{" "}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
-                      <div>
-                        <img
-                          src={require("../../images/image-web-dev.jpg")}
-                          className="w-100 "
-                          alt=""
-                        ></img>
-                      </div>
-                    </div>
-                    <div className="col-md-9 blog-texts">
-                      <div>
-                        <span className="category-min">Web</span>
-                        <h5>
-                          The best twenty plant species you can look at at home
-                        </h5>
-                        <p className="text-paragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Eum exercitationem voluptas accusamus
-                          accusantium amet qui possimus, explicabo omnis ab
-                          temporibus, corporis modi eius ex et hic. Repellendus
-                          sapiente ea voluptas?
-                        </p>
-                        <p className="text-paragraph-writer">
-                          21 July, 2023 / <span> By Tareq </span>{" "}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
-                      <div>
-                        <img
-                          src={require("../../images/image-web-dev.jpg")}
-                          className="w-100 "
-                          alt=""
-                        ></img>
-                      </div>
-                    </div>
-                    <div className="col-md-9 blog-texts">
-                      <div>
-                        <span className="category-min">Web</span>
-                        <h5>
-                          The best twenty plant species you can look at at home
-                        </h5>
-                        <p className="text-paragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Eum exercitationem voluptas accusamus
-                          accusantium amet qui possimus, explicabo omnis ab
-                          temporibus, corporis modi eius ex et hic. Repellendus
-                          sapiente ea voluptas?
-                        </p>
-                        <p className="text-paragraph-writer">
-                          21 July, 2023 / <span> By Tareq </span>{" "}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
-                      <div>
-                        <img
-                          src={require("../../images/image-web-dev.jpg")}
-                          className="w-100 "
-                          alt=""
-                        ></img>
-                      </div>
-                    </div>
-                    <div className="col-md-9 blog-texts">
-                      <div>
-                        <span className="category-min">Web</span>
-                        <h5>
-                          The best twenty plant species you can look at at home
-                        </h5>
-                        <p className="text-paragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Eum exercitationem voluptas accusamus
-                          accusantium amet qui possimus, explicabo omnis ab
-                          temporibus, corporis modi eius ex et hic. Repellendus
-                          sapiente ea voluptas?
-                        </p>
-                        <p className="text-paragraph-writer">
-                          21 July, 2023 / <span> By Tareq </span>{" "}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
-                      <div>
-                        <img
-                          src={require("../../images/image-web-dev.jpg")}
-                          className="w-100 "
-                          alt=""
-                        ></img>
-                      </div>
-                    </div>
-                    <div className="col-md-9 blog-texts">
-                      <div>
-                        <span className="category-min">Web</span>
-                        <h5>
-                          The best twenty plant species you can look at at home
-                        </h5>
-                        <p className="text-paragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Eum exercitationem voluptas accusamus
-                          accusantium amet qui possimus, explicabo omnis ab
-                          temporibus, corporis modi eius ex et hic. Repellendus
-                          sapiente ea voluptas?
-                        </p>
-                        <p className="text-paragraph-writer">
-                          21 July, 2023 / <span> By Tareq </span>{" "}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
-                      <div>
-                        <img
-                          src={require("../../images/image-web-dev.jpg")}
-                          className="w-100 "
-                          alt=""
-                        ></img>
-                      </div>
-                    </div>
-                    <div className="col-md-9 blog-texts">
-                      <div>
-                        <span className="category-min">Web</span>
-                        <h5>
-                          The best twenty plant species you can look at at home
-                        </h5>
-                        <p className="text-paragraph">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Eum exercitationem voluptas accusamus
-                          accusantium amet qui possimus, explicabo omnis ab
-                          temporibus, corporis modi eius ex et hic. Repellendus
-                          sapiente ea voluptas?
-                        </p>
-                        <p className="text-paragraph-writer">
-                          21 July, 2023 / <span> By Tareq </span>{" "}
-                        </p>
-                      </div>
-                    </div>
+                    {posts.map((item, idx) => {
+                      return (
+                        <div key={idx}>
+                          <div className="col-md-3 blog-box-image d-flex justify-content-center align-content-center">
+                            <div>
+                              <img
+                                src={require("../../images/image-web-dev.jpg")}
+                                className="w-100 "
+                                alt=""
+                              ></img>
+                            </div>
+                          </div>
+                          <div className="col-md-9 blog-texts">
+                            <div>
+                              <span className="category-min">
+                                {item.category}
+                              </span>
+                              <h5>{item.text}</h5>
+                              <p className="text-paragraph">
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipisicing elit. Eum exercitationem voluptas
+                                accusamus accusantium amet qui possimus,
+                                explicabo omnis ab temporibus, corporis modi
+                                eius ex et hic. Repellendus sapiente ea
+                                voluptas?
+                              </p>
+                              <p className="text-paragraph-writer">
+                                21 July, 2023 / <span> By Tareq </span>{" "}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-12">

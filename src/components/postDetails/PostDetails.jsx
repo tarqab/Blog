@@ -98,8 +98,11 @@ export default function PostDetails() {
     let hour = addingDate.getHours();
     let min = addingDate.getMinutes();
     //const sec = addingDate.getSeconds();
-    const temp = date + " " + month + " " + year + " " + hour + ":" + min;
-    console.log(temp);
+    if (min == 0) {
+      min = min + "0"
+    }
+
+    const temp = date + " " + month + " " + year + " " + hour + ":" + min  ;
 
     setTime(temp);
   };
