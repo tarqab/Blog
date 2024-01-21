@@ -22,7 +22,7 @@ export default function MyPosts() {
   useEffect(() => {
     getData();
   }, []);
-
+ console.log(data);
   return (
     <>
       {data ? (

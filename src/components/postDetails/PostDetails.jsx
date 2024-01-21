@@ -13,7 +13,6 @@ export default function PostDetails() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [text, setText] = useState("");
-  const [timeInSeconds, setTimeInSeconds] = useState(0);
 
   const [clicked, setClicked] = useState("d-none");
   const [updateButtonFirst, setUpdateButtonFirst] = useState("d-block");
