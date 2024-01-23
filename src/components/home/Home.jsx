@@ -8,62 +8,69 @@ import { PuffLoader } from "react-spinners";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [track , setTrack] = useState("still");
 
-  useEffect(() => {
-    async function getAllBlogs() {
-      let temp = [];
-      const querySnapshot = await getDocs(collection(db, "users"));
+  //---------------- Get data -----------------
 
-      querySnapshot.forEach(async (doc) => {
-        let firstDocId = doc.id;
-        let name = doc.data().firstName + " " + doc.data().lastName;
+  async function getAllBlogs() {
+    let temp = [];
+    const querySnapshot = await getDocs(collection(db, "users"));
 
-        const querySnapshot = await getDocs(
-          collection(db, "users", doc.id, "posts")
-        );
-        querySnapshot.forEach((doc) => {
-          let addingDate = new Date(doc.data().addingTime.seconds * 1000);
-          let months = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-          ];
-          let year = addingDate.getFullYear();
-          let month = months[addingDate.getMonth()];
-          let date = addingDate.getDate();
+    querySnapshot.forEach(async (doc) => {
+      let firstDocId = doc.id;
+      let name = doc.data().firstName + " " + doc.data().lastName;
 
-          const tempTime = date + " " + month + " " + year;
+      const querySnapshot = await getDocs(
+        collection(db, "users", doc.id, "posts")
+      );
+      querySnapshot.forEach((doc) => {
+        let addingDate = new Date(doc.data().addingTime.seconds * 1000);
+        let months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        let year = addingDate.getFullYear();
+        let month = months[addingDate.getMonth()];
+        let date = addingDate.getDate();
 
-          temp.push({
-            ...doc.data(),
-            id: doc.id,
-            timeOfPost: tempTime,
-            author: name,
-            firstDocId: firstDocId,
-          });
+        const tempTime = date + " " + month + " " + year;
+
+        temp.push({
+          ...doc.data(),
+          id: doc.id,
+          timeOfPost: tempTime,
+          author: name,
+          firstDocId: firstDocId,
         });
         setPosts(temp);
 
       });
-    }
+    
+    });
 
+    setTrack("done")
+
+   
+  }
+  useEffect(() => {
     getAllBlogs();
-  }, []);
-  
+  }, [track]);
+
   console.log(posts);
 
   return (
     <>
-      {posts ? (
+      {posts != [] ? (
         <div className="home ">
           <div className="container-home">
             <div className="title-home mt-5">
