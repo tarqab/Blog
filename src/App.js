@@ -24,6 +24,7 @@ import { UserProvider } from "./components/context/userContext.js";
 import NewPost from "./components/newPost/NewPost.jsx";
 import MyPosts from "./components/myPosts/MyPosts.jsx";
 import PostDetails from "./components/postDetails/PostDetails.jsx";
+import PostDetailsFromHome from "./components/postDetailsFromHome/postDetailsFromHome.jsx";
 
 library.add(
   faFacebook,
@@ -78,6 +79,14 @@ const myRouter = createBrowserRouter([
         element:(
           <ProtectedRoute>
             <PostDetails />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path:"/postdetailsfromhome",
+        element:(
+          <ProtectedRoute>
+            <PostDetailsFromHome />
           </ProtectedRoute>
         )
       },

@@ -15,9 +15,9 @@ export default function Home() {
       const querySnapshot = await getDocs(collection(db, "users"));
 
       querySnapshot.forEach(async (doc) => {
-        console.log(doc.data());
+        let firstDocId = doc.id;
         let name = doc.data().firstName + " " + doc.data().lastName;
-        console.log(name);
+
         const querySnapshot = await getDocs(
           collection(db, "users", doc.id, "posts")
         );
@@ -48,15 +48,17 @@ export default function Home() {
             id: doc.id,
             timeOfPost: tempTime,
             author: name,
+            firstDocId: firstDocId,
           });
         });
-
         setPosts(temp);
+
       });
     }
 
     getAllBlogs();
   }, []);
+  
   console.log(posts);
 
   return (
@@ -138,7 +140,14 @@ export default function Home() {
                     <div className="blog-box row gy-3 ">
                       {posts.map((item) => {
                         return (
-                          <Link to={`/postDetails/${item.id}`}>
+                          <Link
+                            to="/postdetailsfromhome"
+                            state={{
+                              id: item.id,
+                              firstId: item.firstDocId,
+                              time: item.timeOfPost,
+                            }}
+                          >
                             <div
                               className="col-md-9 blog-texts border rounded"
                               key={item.id}
