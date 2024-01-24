@@ -15,7 +15,7 @@ export default function Navbar() {
   const { userUid, setUserUid } = useContext(userContext);
   const navigate = useNavigate();
   function logout() {
-    toast("log out is successfully done");
+    toast.success("Log out is successfully done");
     sessionStorage.removeItem("tkn");
     sessionStorage.removeItem("uid");
     setToken(null);
@@ -50,8 +50,8 @@ export default function Navbar() {
   return (
     <>
       <div className="navbar">
-        <div className="container-navbar w-100  d-flex justify-content-between container-fluid">
-          <div className="left d-flex justify-content-center align-items-center  gap-3 ">
+        <div className="container-navbar w-100  d-flex  container-fluid">
+          {/* <div className="left d-flex justify-content-center align-items-center  gap-3 ">
             <div className="h-100 d-flex gap-3">
               {" "}
               <div className="d-flex gap-2">
@@ -83,7 +83,7 @@ export default function Navbar() {
               </div>
               {userUid ? <h6>Hello {userName}</h6> : ""}
             </div>
-          </div>
+          </div> */}
           <div className="links">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
               <div className="container-fluid ">
@@ -112,14 +112,31 @@ export default function Navbar() {
                         Home
                       </Link>
                     </li>
+                    <li className="nav-item signUp-navbar">
+                      <Link className="nav-link" to="/signUp">
+                        Sign up
+                      </Link>
+                    </li>
+                    <li className="nav-item signIn-navbar">
+                      <Link className="nav-link" to="/login">
+                      Sign in
+                      </Link>
+                    </li>
+                    {token ? 
+                     <li className="nav-item">
+                     <button onClick={logout}  className="nav-link" to="">
+                       Log out 
+                     </button >
+                   </li> : ""}
+                   
                     <li className="nav-item">
-                      <Link className="nav-link" to="/newPost">
-                        New post
+                      <Link className="nav-link" to="/myPosts">
+                        My posts
                       </Link>
                     </li>
                     <li className="nav-item">
                       <Link className="nav-link" to="/myPosts">
-                        My posts
+                        Add a new post
                       </Link>
                     </li>
                   </ul>

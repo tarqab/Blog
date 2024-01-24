@@ -73,16 +73,23 @@ export default function Register() {
   async function createNewUser(e) {
     try {
       e.preventDefault();
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const user = res.user;
-      console.log(user);
-      await setDoc(doc(db, "users", user.uid), {
-        ...userData,
-        timeStamp: serverTimestamp(),
-      });
-      toast.success("New account is created");
+      if (password === repassword ) {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        const user = res.user;
+        console.log(user);
+        await setDoc(doc(db, "users", user.uid), {
+          ...userData,
+          timeStamp: serverTimestamp(),
+        });
+        toast.success("New account is created");
+        
+        setUserUid(user.uid)
+      }
+      else {
+        toast.error("The Passwords do not match")
+      }
       
-      setUserUid(user.uid)
+    
     } catch (error) {
       const errorMessage = error.message;
       if (errorMessage === "Firebase: Error (auth/email-already-in-use).") {
@@ -90,7 +97,6 @@ export default function Register() {
       }
     }
   } 
-  console.log(uploadDone);
   return (
     <>
       <div className="container py-4">

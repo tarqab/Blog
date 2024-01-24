@@ -62,6 +62,13 @@ export default function Home() {
 
    
   }
+
+  //---------------  Sorting ---------------
+
+
+  const sortBlogs = () => {
+
+  }
   useEffect(() => {
     getAllBlogs();
   }, [track]);
@@ -142,10 +149,11 @@ export default function Home() {
                 </div>
               </div>
               <div className="container mt-5">
+                <h2>The lastest Blog published </h2>
                 <div className="row">
                   <div className="col-lg-9 col-md-12 blogs-flow">
                     <div className="blog-box row gy-3 ">
-                      {posts.map((item) => {
+                      {posts.slice(0 , 11).sort((a , b) => a.addingTime - b.addingTime).reverse().map((item) => {
                         return (
                           <Link
                             to="/postdetailsfromhome"
@@ -156,7 +164,7 @@ export default function Home() {
                             }}
                           >
                             <div
-                              className="col-md-9 blog-texts border rounded"
+                              className="col-md-9 blog-texts border rounded p-1"
                               key={item.id}
                             >
                               <div>

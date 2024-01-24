@@ -5,15 +5,7 @@
 
 
 
-@media screen and (max-width:576px) {
-    .container-navbar {
-        justify-content: center!important;
-        
-    }
-    .left {
-        display: none!important;
-    }
-}
+
 .buttons-navbar {
   width: 100px !important;
 
@@ -23,4 +15,45 @@
     height: 40px;
     margin-right: 10px;
     border-radius: 46%;
+}
+
+.signUp-navbar , 
+.signIn-navbar {
+    display: none;
+}
+
+@media screen and (max-width:576px) {
+    .container-navbar {
+        justify-content: center!important;
+        
+    }
+    .signUp-navbar , 
+     .signIn-navbar {
+    display: block;
+}
+}
+
+
+
+@media screen and (max-width:992px) {
+    .left {
+        display: none!important;
+
+    }
+    .right {
+        display: none!important;
+
+    }
+    .signUp-navbar , 
+     .signIn-navbar {
+    display: block;
+}
+    
+}
+@media screen and (max-width:1200px) {
+   
+.buttons-navbar {
+    width: 80px !important;
+  
+  }
 }
