@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { PuffLoader } from "react-spinners";
 import { searchContext } from "../context/searchContext";
 
@@ -16,6 +16,14 @@ export default function SearchResult() {
           <div className="row gy-2">
             {blogsMatched.map((item) => {
               return (
+                <Link
+                to="/postdetailsfromhome"
+                state={{
+                  id: item.id,
+                  firstId: item.firstDocId,
+                  time: item.timeOfPost,
+                }}
+              >
                 <div key={item.id} className="col-md-12">
                   <div className=" border rounded p-2">
                     <h5>Title: {item.title}</h5>
@@ -23,6 +31,7 @@ export default function SearchResult() {
                     {/* <h6>Added at : {time}</h6> */}
                   </div>
                 </div>
+                </Link>
               );
             })}
           </div>

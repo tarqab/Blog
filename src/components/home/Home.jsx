@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { PuffLoader } from "react-spinners";
+import { searchContext } from "../context/searchContext";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [track, setTrack] = useState("still");
+  const [searchedPost, setSearchedPost] = useState("");
+
+  const { searchBlog, blogsMatched } = useContext(searchContext);
 
   //---------------- Get data -----------------
 
@@ -159,7 +163,7 @@ export default function Home() {
                               }}
                             >
                               <div
-                                className="col-md-9 blog-texts border rounded p-1"
+                                className="col-md-9 blog-texts border rounded p-1 overflow-hidden"
                                 key={item.id}
                               >
                                 <div>
@@ -185,16 +189,24 @@ export default function Home() {
                         <h5>Search</h5>
                         <div className="input-group mb-3">
                           <span
+                            onClick={() => {
+                              searchBlog(searchedPost);
+                            }}
+                            style={{ cursor: "pointer" }}
                             className="input-group-text bg-main"
                             id="basic-addon1"
                           >
-                            <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+                            <Link to="/searchResult">
+                              <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />{" "}
+                            </Link>
                           </span>
+
                           <input
                             type="text"
                             className="form-control"
                             placeholder="search"
                             aria-label="Username"
+                            onChange={(e) => setSearchedPost(e.target.value)}
                           />
                         </div>
                       </div>
