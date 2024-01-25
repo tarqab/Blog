@@ -51,39 +51,6 @@ export default function Navbar() {
     <>
       <div className="navbar">
         <div className="container-navbar w-100  d-flex  container-fluid">
-          {/* <div className="left d-flex justify-content-center align-items-center  gap-3 ">
-            <div className="h-100 d-flex gap-3">
-              {" "}
-              <div className="d-flex gap-2">
-                <FontAwesomeIcon
-                  icon="fa-brands fa-facebook"
-                  color="white"
-                  cursor={"pointer"}
-                />{" "}
-                <FontAwesomeIcon
-                  icon="fa-brands fa-twitter"
-                  color="white"
-                  cursor={"pointer"}
-                />{" "}
-                <FontAwesomeIcon
-                  icon="fa-brands fa-linkedin"
-                  color="white"
-                  cursor={"pointer"}
-                />{" "}
-                <FontAwesomeIcon
-                  icon="fa-brands fa-instagram"
-                  color="white"
-                  cursor={"pointer"}
-                />{" "}
-                <FontAwesomeIcon
-                  icon="fa-brands fa-youtube"
-                  color="white"
-                  cursor={"pointer"}
-                />{" "}
-              </div>
-              {userUid ? <h6>Hello {userName}</h6> : ""}
-            </div>
-          </div> */}
           <div className="links">
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
               <div className="container-fluid ">
@@ -135,7 +102,7 @@ export default function Navbar() {
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/myPosts">
+                      <Link className="nav-link" to="/newPost">
                         Add a new post
                       </Link>
                     </li>
