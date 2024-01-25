@@ -25,6 +25,8 @@ import NewPost from "./components/newPost/NewPost.jsx";
 import MyPosts from "./components/myPosts/MyPosts.jsx";
 import PostDetails from "./components/postDetails/PostDetails.jsx";
 import PostDetailsFromHome from "./components/postDetailsFromHome/postDetailsFromHome.jsx";
+import SearchProvider from "./components/context/searchContext.js";
+import SearchResult from "./components/searchResult/SearchResult.jsx";
 
 library.add(
   faFacebook,
@@ -62,8 +64,7 @@ const myRouter = createBrowserRouter([
           <ProtectedRoute>
             <NewPost />
           </ProtectedRoute>
-        )
-
+        ),
       },
       {
         path: "/myPosts",
@@ -71,24 +72,32 @@ const myRouter = createBrowserRouter([
           <ProtectedRoute>
             <MyPosts />
           </ProtectedRoute>
-        )
+        ),
       },
-     
+
       {
-        path:"/postDetails/:id",
-        element:(
+        path: "/postDetails/:id",
+        element: (
           <ProtectedRoute>
             <PostDetails />
           </ProtectedRoute>
-        )
+        ),
       },
       {
-        path:"/postdetailsfromhome",
-        element:(
+        path: "/postdetailsfromhome",
+        element: (
           <ProtectedRoute>
             <PostDetailsFromHome />
           </ProtectedRoute>
-        )
+        ),
+      },
+      {
+        path: "/searchResult",
+        element: (
+          <ProtectedRoute>
+            <SearchResult />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/signUp",
@@ -101,12 +110,14 @@ const myRouter = createBrowserRouter([
 export default function App() {
   return (
     <>
-      <UserProvider>
-        <AuthProvider>
-          <RouterProvider router={myRouter}></RouterProvider>
-          <Toaster />
-        </AuthProvider>
-      </UserProvider>
+      <SearchProvider>
+        <UserProvider>
+          <AuthProvider>
+            <RouterProvider router={myRouter}></RouterProvider>
+            <Toaster />
+          </AuthProvider>
+        </UserProvider>
+      </SearchProvider>
     </>
   );
 }

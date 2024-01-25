@@ -7,13 +7,19 @@ import { authContext } from "../context/authContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { userContext } from "../context/userContext";
+import { searchContext } from "../context/searchContext";
 export default function Navbar() {
   const { token, setToken } = useContext(authContext);
   const [profileImg, setProfileImg] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [searchedPost, setSearchedPost] = useState("");
 
   const { userUid, setUserUid } = useContext(userContext);
   const navigate = useNavigate();
+  const { searchBlog, blogsMatched } = useContext(searchContext);
+
+  //------------------------
+
   function logout() {
     toast.success("Log out is successfully done");
     sessionStorage.removeItem("tkn");
@@ -46,6 +52,7 @@ export default function Navbar() {
     console.log("useEffect Navbar");
     getSomeData();
   }, [userUid]);
+
 
   return (
     <>
@@ -86,16 +93,19 @@ export default function Navbar() {
                     </li>
                     <li className="nav-item signIn-navbar">
                       <Link className="nav-link" to="/login">
-                      Sign in
+                        Sign in
                       </Link>
                     </li>
-                    {token ? 
-                     <li className="nav-item">
-                     <button onClick={logout}  className="nav-link" to="">
-                       Log out 
-                     </button >
-                   </li> : ""}
-                   
+                    {token ? (
+                      <li className="nav-item">
+                        <button onClick={logout} className="nav-link" to="">
+                          Log out
+                        </button>
+                      </li>
+                    ) : (
+                      ""
+                    )}
+
                     <li className="nav-item">
                       <Link className="nav-link" to="/myPosts">
                         My posts
@@ -156,10 +166,24 @@ export default function Navbar() {
               className="form-control"
               id="search"
               placeholder="search"
+              onChange={(e) => setSearchedPost(e.target.value)}
             />
-            <button className="btn btn-outline-dark buttons-navbar">
-              search
-            </button>
+            <Link to="/searchResult" 
+            
+            //  state={{ 
+            //   blogsMatched: blogsMatched,
+              
+            // }}
+            >
+              <button
+                onClick={() => {
+                  searchBlog(searchedPost);
+                }}
+                className="btn btn-outline-dark buttons-navbar"
+              >
+                search
+              </button>
+            </Link>
           </div>
         </div>
       </div>

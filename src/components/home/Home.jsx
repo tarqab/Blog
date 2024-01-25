@@ -8,7 +8,7 @@ import { PuffLoader } from "react-spinners";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const [track , setTrack] = useState("still");
+  const [track, setTrack] = useState("still");
 
   //---------------- Get data -----------------
 
@@ -53,28 +53,19 @@ export default function Home() {
           firstDocId: firstDocId,
         });
         setPosts(temp);
-
       });
-    
     });
 
-    setTrack("done")
-
-   
+    setTrack("done");
   }
 
   //---------------  Sorting ---------------
 
-
-  const sortBlogs = () => {
-
-  }
   useEffect(() => {
     getAllBlogs();
   }, [track]);
 
   console.log(posts);
-
   return (
     <>
       {posts != [] ? (
@@ -153,35 +144,39 @@ export default function Home() {
                 <div className="row">
                   <div className="col-lg-9 col-md-12 blogs-flow">
                     <div className="blog-box row gy-3 ">
-                      {posts.slice(0 , 11).sort((a , b) => a.addingTime - b.addingTime).reverse().map((item) => {
-                        return (
-                          <Link
-                            to="/postdetailsfromhome"
-                            state={{
-                              id: item.id,
-                              firstId: item.firstDocId,
-                              time: item.timeOfPost,
-                            }}
-                          >
-                            <div
-                              className="col-md-9 blog-texts border rounded p-1"
-                              key={item.id}
+                      {posts
+                        .slice(0, 11)
+                        .sort((a, b) => a.addingTime - b.addingTime)
+                        .reverse()
+                        .map((item) => {
+                          return (
+                            <Link
+                              to="/postdetailsfromhome"
+                              state={{
+                                id: item.id,
+                                firstId: item.firstDocId,
+                                time: item.timeOfPost,
+                              }}
                             >
-                              <div>
-                                <span className="category-min">
-                                  {item.category}
-                                </span>
-                                <h5>{item.title}</h5>
-                                <p className="text-paragraph">{item.text}</p>
-                                <p className="text-paragraph-writer">
-                                  Added in : {item.timeOfPost} /{" "}
-                                  <span> {item.author} </span>{" "}
-                                </p>
+                              <div
+                                className="col-md-9 blog-texts border rounded p-1"
+                                key={item.id}
+                              >
+                                <div>
+                                  <span className="category-min">
+                                    {item.category}
+                                  </span>
+                                  <h5>{item.title}</h5>
+                                  <p className="text-paragraph">{item.text}</p>
+                                  <p className="text-paragraph-writer">
+                                    Added in : {item.timeOfPost} /{" "}
+                                    <span> {item.author} </span>{" "}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          </Link>
-                        );
-                      })}
+                            </Link>
+                          );
+                        })}
                     </div>
                   </div>
                   <div className="col-lg-3 col-md-12">
