@@ -14,7 +14,7 @@ export default function Home() {
 
   const { searchBlog, blogsMatched } = useContext(searchContext);
 
-  //---------------- Get data -----------------
+  //----------- Get data --------------
 
   async function getAllBlogs() {
     let temp = [];
