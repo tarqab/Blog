@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase";
-import { Timestamp, addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore"; 
+import {  addDoc, collection, serverTimestamp } from "firebase/firestore"; 
 import { toast } from 'react-hot-toast';
 
 
@@ -19,6 +19,7 @@ export default function NewPost() {
   const addNewPost = async(e) => {
     e.preventDefault();
     const posts = collection(db, "users", uid, "posts");
+    // eslint-disable-next-line no-unused-vars
     const docRef = await addDoc(posts, {
       ...newPostObj , addingTime: serverTimestamp()
     });

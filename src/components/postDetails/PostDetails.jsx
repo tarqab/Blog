@@ -97,7 +97,7 @@ export default function PostDetails() {
     let hour = addingDate.getHours();
     let min = addingDate.getMinutes();
     //const sec = addingDate.getSeconds();
-    if (min == 0) {
+    if (min === 0) {
       min = min + "0"
     }
 
@@ -110,6 +110,7 @@ export default function PostDetails() {
   useEffect(() => {
     getPostDetails();
     timeOfPost();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.addingTime.seconds]);
 
   return (

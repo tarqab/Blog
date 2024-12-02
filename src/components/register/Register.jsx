@@ -68,6 +68,7 @@ export default function Register() {
     };
 
     file && uploadFile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
   async function createNewUser(e) {

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PuffLoader } from "react-spinners";
 import { searchContext } from "../context/searchContext";
 

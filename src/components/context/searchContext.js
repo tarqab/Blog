@@ -80,6 +80,7 @@ export default function SearchProvider({ children }) {
   useEffect(() => {
     getAllBlogs();
     searchBlog();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [track , trackSecond]);
 
   console.log("from search", posts);

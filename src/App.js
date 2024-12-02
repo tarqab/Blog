@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { firebaseConfig } from "./firebase.js";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { Toaster } from "react-hot-toast";
 import {
@@ -12,7 +11,6 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelopeOpen } from "@fortawesome/fontawesome-free-regular";
 import Home from "./components/home/Home.jsx";
 import Layout from "./components/layout/Layout.jsx";
 import Login from "./components/login/Login.jsx";

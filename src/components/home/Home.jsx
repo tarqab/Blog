@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +13,7 @@ export default function Home() {
   const [track, setTrack] = useState("still");
   const [searchedPost, setSearchedPost] = useState("");
 
-  const { searchBlog, blogsMatched } = useContext(searchContext);
+  const { searchBlog } = useContext(searchContext);
 
   //----------- Get data --------------
 
