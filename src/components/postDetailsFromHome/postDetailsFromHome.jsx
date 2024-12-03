@@ -25,6 +25,7 @@ export default function PostDetailsFromHome() {
   };
   useEffect(() => {
     getPostDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(data);
