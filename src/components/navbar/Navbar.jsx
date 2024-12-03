@@ -125,6 +125,7 @@ export default function Navbar() {
 
           <div className="right d-flex justify-content-center align-items-center gap-2  ">
             <div className="d-flex gap-2 ">
+             
               {token ? (
                 <div className="d-flex ">
                   <img
